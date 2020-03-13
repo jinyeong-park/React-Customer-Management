@@ -4,11 +4,10 @@ class Customer extends React.Component {
     render() {
         return (
             <div>
-                <h2>Jinyeong Park</h2>
-                <p>96122</p>
-                <p>female</p>
-                <p>University student</p>
-            
+                <h2>{this.props.name}</h2>
+                <p>{this.props.birthday}</p>
+                <p>{this.props.gender}</p>
+                <p>{this.props.job}</p>
              </div>
 
         )
