@@ -1,6 +1,11 @@
 import React, {Component } from 'react';
 import Customer from './components/Customer'
 import './App.css';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 
 const customers = [
 {
@@ -23,7 +28,7 @@ const customers = [
   'id': 3,
   'image': 'https://placeimg.com/64/64/3',
   'name': 'Thomas',
-  'birthday':'961223',
+  'birthday':'960327',
   'gender': 'male',
   'job': 'CFO'
 }
@@ -33,21 +38,26 @@ class App extends Component {
   render() {
     return (
       <div>
-        {
-          customers.map(c => {
-            return (
-              <Customer
-              key={c.id}
-              id={c.id}
-              image={c.image}
-              name={c.name}
-              birthday={c.birthday}
-              gender={c.gender}
-              job={c.job}
-              />
-            );
-          })
-        }
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>No.</TableCell>
+              <TableCell>Image</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Birthday</TableCell>
+              <TableCell>Gender</TableCell>
+              <TableCell>Job</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+          {
+          customers.map(c => {return ( <Customer key={c.id} id={c.id} image={c.image} name={c.name}
+              birthday={c.birthday} gender={c.gender} job={c.job}/> ); })
+          }
+
+          </TableBody>
+        </Table>
+        
       </div>
     )
   }
