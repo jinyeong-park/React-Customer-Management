@@ -33,7 +33,26 @@ class App extends Component {
   render() {
     return (
       <div>
-      <Customer
+        {
+          customers.map(c => {
+            return (
+              <Customer
+              key={c.id}
+              id={c.id}
+              image={c.image}
+              name={c.name}
+              birthday={c.birthday}
+              gender={c.gender}
+              job={c.job}
+              />
+            );
+          })
+        }
+      </div>
+    )
+  }
+}
+      {/* <Customer
       id={customers[0].id}
       image={customers[0].image}
       name={customers[0].name}
@@ -56,10 +75,8 @@ class App extends Component {
       birthday={customers[2].birthday}
       gender={customers[2].gender}
       job={customers[2].job}
-      />
-      </div>
-    );
-  }
-}
+      /> */}
+      //</div>
+  
 
 export default App;
