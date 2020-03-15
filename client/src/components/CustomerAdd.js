@@ -30,7 +30,7 @@ class CustomerAdd extends React.Component {
     }
     handleValueChange = (e) => {
         let nextStage = {};
-        nextStage[e.target.name] = e.target.vallue;
+        nextStage[e.target.name] = e.target.value;
         this.setState(nextStage);
     }
         
