@@ -58,7 +58,7 @@ class CustomerAdd extends React.Component {
                 Name: <input type="text" name="userName" value={this.state.userName} onChange={this.handleValueChange}/><br/>
                 Birthday: <input type="text" name="birthday" value={this.state.birthday} onChange={this.handleValueChange}/><br/>
                 Gender: <input type="text" name="gender" value={this.state.gender} onChange={this.handleValueChange}/><br/>
-                Job: <input type="text" name="job" value={this.state.gender} onChange={this.handleValueChange}/><br/>
+                Job: <input type="text" name="job" value={this.state.job} onChange={this.handleValueChange}/><br/>
                 <button type="submit">Add</button>
             </form>
         )
