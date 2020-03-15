@@ -30,12 +30,30 @@ const styles = theme => ({
 
 //remove hard coding for customer, instead bring customer data from server using REST api
 class App extends Component {
-  //initially empty data for customers
-  state = {
-    customers: "",
-    completed: 0
+  // //initially empty data for customers
+  // state = {
+  //   customers: "",
+  //   completed: 0
+  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      customers: '',
+      completed: 0
+    }
   }
-  //access to api & get the data: componentDidMount()
+
+  stateRefresh = () => {
+    this.setState({
+      customers: '',
+      completed: 0
+    });
+    this.callApi()
+    .then(res => this.setState({customers: res}))
+    .catch(err => console.log(err));
+  }
+
+   //access to api & get the data: componentDidMount()
   componentDidMount() {
     this.timer = setInterval(this.progress, 20);
     this.callApi()
@@ -84,7 +102,7 @@ class App extends Component {
           </TableBody>
         </Table>
        </Paper>
-      <CustomerAdd/>
+      <CustomerAdd stateRefresh={this.stateRefresh}/>
     </div>
     );
   }
