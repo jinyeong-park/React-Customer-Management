@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Customer from './components/Customer'
-import CustomerAdd from './components/CustomerAdd'
+import Customer from './components/Customer';
+import CustomerAdd from './components/CustomerAdd';
 import './App.css';
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table';
@@ -15,7 +15,7 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop: theme.spacing(3),
-    autoflowX: "auto"
+    overflowX: "auto"
   },
   table: {
     minWidth: 1080
@@ -61,7 +61,6 @@ class App extends Component {
     return (
     <div>
       <Paper className={classes.root}>
-       {/* <div> */}
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
@@ -74,20 +73,18 @@ class App extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-          {this.state.customers ? this.state.customers.map(c => {return ( <Customer key={c.id} id={c.id} image={c.image} name={c.name}
-              birthday={c.birthday} gender={c.gender} job={c.job}/> )
+           {this.state.customers ? this.state.customers.map(c => {
+             return ( <Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}/> )
              }) : 
              <TableRow>
                <TableCell colSpan="6" align="center">
-                 <CircularProgress ClassName={classes.progress} variant="determinate" value={this.state.completed}/>
+                 <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed}/>
                  </TableCell>
                </TableRow>}
           </TableBody>
         </Table>
-        
-      {/* </div> */}
+       </Paper>
       <CustomerAdd/>
-      </Paper>
     </div>
     );
   }

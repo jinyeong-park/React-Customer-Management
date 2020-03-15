@@ -21,7 +21,17 @@ class CustomerAdd extends React.Component {
             .then((response) => {
                 console.log(response.data);
             })
+        this.setState({
+            file: null,
+            userName: '',
+            birthday: '',
+            gender: '',
+            job: '',
+            fileName: ''
+        })
+        window.location.reload();
     }
+
     handleFileChange = (e) => {
         this.setState({
             file: e.target.files[0],
@@ -29,9 +39,9 @@ class CustomerAdd extends React.Component {
         })
     }
     handleValueChange = (e) => {
-        let nextStage = {};
-        nextStage[e.target.name] = e.target.value;
-        this.setState(nextStage);
+        let nextState = {};
+        nextState[e.target.name] = e.target.value;
+        this.setState(nextState);
     }
         
     addCustomer = () => {
@@ -59,7 +69,7 @@ class CustomerAdd extends React.Component {
                 Birthday: <input type="text" name="birthday" value={this.state.birthday} onChange={this.handleValueChange}/><br/>
                 Gender: <input type="text" name="gender" value={this.state.gender} onChange={this.handleValueChange}/><br/>
                 Job: <input type="text" name="job" value={this.state.job} onChange={this.handleValueChange}/><br/>
-                <button type="submit">Add</button>
+                <button type="submit">Submit</button>
             </form>
         )
     }
