@@ -205,7 +205,7 @@ render() {
           </TableBody>
         </Table>
        </Paper>
-      <CustomerAdd stateRefresh={this.stateRefresh}/>
+      {/* <CustomerAdd stateRefresh={this.stateRefresh}/> */}
     </div>
     );
   }
