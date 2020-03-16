@@ -113,14 +113,16 @@ class App extends Component {
     super(props);
     this.state = {
       customers: '',
-      completed: 0
+      completed: 0,
+      searchKeyword: ''
     }
   }
 
   stateRefresh = () => {
     this.setState({
       customers: '',
-      completed: 0
+      completed: 0,
+      searchKeyword: ''
     });
     this.callApi()
     .then(res => this.setState({customers: res}))
@@ -147,68 +149,84 @@ class App extends Component {
     this.setState({ completed: completed >= 100 ? 0 : completed + 1});
   }
 
+  handleValueChange = (e) => {
+    let nextState = {};
+    nextState[e.target.name] = e.target.value;
+    this.setState(nextState);
+  }
 
-render() {
-  const { classes } = this.props;
-  const cellList = ["No", "Profile Image", "Name", "Birthday", "Gender", "Job", "Delete"]
-  return (
-  <div className={classes.root}>
-    <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Customer Management System
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+
+  render() {
+    const filteredComponents = (data) => {
+      data = data.filter((c) => {
+        return c.name.indexOf(this.state.searchKeyword) > -1;
+      })
+      return data.map((c) => {
+        return <Customer stateRefresh={this.stateRefresh} key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} />
+      });
+    }
+    const { classes } = this.props;
+    const cellList = ["No", "Profile Image", "Name", "Birthday", "Gender", "Job", "Delete"]
+    return (
+    <div className={classes.root}>
+      <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="open drawer"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography className={classes.title} variant="h6" noWrap>
+              Customer Management System
+            </Typography>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                //inputProps={{ 'aria-label': 'search' }}
+                name="searchKeyword"
+                value={this.state.searchKeyword}
+                onChange={this.handleValueChange}
+              />
             </div>
-            <InputBase
-              placeholder="Search"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-        </Toolbar>
-      </AppBar>
-      <div className={classes.menu}>
-        <CustomerAdd stateRefresh={this.stateRefresh}/>
-      </div>
-      <Paper className={classes.paper}>
-        <Table className={classes.table}>
-          <TableHead>
+          </Toolbar>
+        </AppBar>
+        <div className={classes.menu}>
+          <CustomerAdd stateRefresh={this.stateRefresh}/>
+        </div>
+        <Paper className={classes.paper}>
+          <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                {cellList.map(c => {
+                  return <TableCell className={classes.tableHead}>{c}</TableCell>
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+            {this.state.customers ?
+              filteredComponents(this.state.customers) :
             <TableRow>
-              {cellList.map(c => {
-                return <TableCell className={classes.tableHead}>{c}</TableCell>
-              })}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-           {this.state.customers ? this.state.customers.map(c => {
-             return ( <Customer stateRefresh={this.stateRefresh} key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job}/> )
-             }) : 
-             <TableRow>
-               <TableCell colSpan="6" align="center">
-                 <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed}/>
-                 </TableCell>
-               </TableRow>}
+              <TableCell colSpan="6" align="center">
+                <CircularProgress className={classes.progress} variant="determinate" value={this.state.completed}/>
+                </TableCell>
+              </TableRow>
+              }
           </TableBody>
         </Table>
-       </Paper>
-      {/* <CustomerAdd stateRefresh={this.stateRefresh}/> */}
-    </div>
+        </Paper>
+      </div>
     );
-  }
+   }
  };
 
 export default withStyles(styles)(App);
